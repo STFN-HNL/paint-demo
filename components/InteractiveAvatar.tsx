@@ -27,8 +27,8 @@ import { AVATARS } from "@/app/lib/constants";
 
 const DEFAULT_CONFIG: StartAvatarRequest = {
   quality: AvatarQuality.High,
-  avatarName: "Graham_Chair_Sitting_public",
-  knowledgeId: "c1307fbde75642b385e3f17f8d164ba2",
+  avatarName: "Pedro_Black_Suit_public",
+  knowledgeId: "0782f55fe4d14b9ca68de65db448924e",
   voice: {
     rate: 1.5,
     emotion: VoiceEmotion.EXCITED,
@@ -41,7 +41,7 @@ const DEFAULT_CONFIG: StartAvatarRequest = {
   },
 };
 
-const AVATAR_INTRO = "Welcome! I'm Alex de Jong, a mid-level professional at Versuni. Over the next 10 minutes, we'll simulate a real coaching session using the GROW model. Your goal? Coach me through my development challenges using effective coaching techniques. I'll respond like a real coachee - sometimes clear, sometimes uncertain, occasionally stuck. You'll guide me through Goal, Reality, Options, and Will phases. When you're done, say: 'END Coaching.' I'll then give you feedback on your coaching approach - what worked well and where you can improve. Let's see how well you can unlock my potential! Say 'START Coaching' when you're ready.";
+const AVATAR_INTRO = "Welcome! I'm Alex Carter, Procurement Lead at a major shipyard. Over the next 10 minutes, we'll simulate a real procurement negotiation where I'll challenge you on pricing and value. Your goal? Convince me why your paint is worth 10 times more than competitors. I'll ask tough questions about cost, performance, and alternatives. You'll guide me through the discussion using PSM sales techniques. When you're done, say: 'STOP training.' I'll then give you feedback on your sales approach—what worked well and where you can improve. Let's see if you can close the deal! Say 'START training' when you're ready.";
 
 function InteractiveAvatar() {
   const { initAvatar, startAvatar, stopAvatar, sessionState, stream } =
@@ -74,6 +74,9 @@ function InteractiveAvatar() {
       const newToken = await fetchAccessToken();
       const avatar = initAvatar(newToken);
 
+      // Forceer altijd de juiste knowledgeId, avatarName en verwijder de achtergrond
+      const forcedConfig = { ...config, knowledgeId: "0782f55fe4d14b9ca68de65db448924e", avatarName: "Pedro_Chair_Sitting_public", needRemoveBackground: true };
+
       avatar.on(StreamingEvents.AVATAR_START_TALKING, (e) => {
         console.log("Avatar started talking", e);
       });
@@ -105,7 +108,7 @@ function InteractiveAvatar() {
         console.log(">>>>> Avatar end message:", event);
       });
 
-      await startAvatar(config);
+      await startAvatar(forcedConfig);
 
       // Always start voice chat
       await avatar.startVoiceChat();
@@ -141,13 +144,10 @@ function InteractiveAvatar() {
   return (
     <div className="min-h-screen bg-white flex flex-col items-center justify-center py-4 sm:py-8">
       <div className="w-full max-w-5xl mx-auto flex flex-col gap-10 items-center px-1 sm:px-6">
-        <img src="/versuni-logo.png" alt="Versuni Logo" className="mx-auto mb-2 max-h-24 sm:max-h-28 w-auto" />
         <div className="bg-white rounded-xl p-6 sm:p-10 w-full mb-2 mx-auto">
-          <h1 className="text-2xl sm:text-3xl font-bold text-blue-800 mb-2">Coaching for Growth at Versuni</h1>
-          <p className="text-lg sm:text-xl text-gray-700 mb-2 font-semibold">Welcome to your AI-powered coaching session.</p>
-          <p className="text-base sm:text-lg text-gray-700 mb-4">In this interactive simulation, you will act as a <b>coach</b> and guide a virtual coachee through realistic conversations using proven coaching frameworks:</p>
-          <p className="text-base sm:text-lg text-blue-700 font-semibold mb-4">GROW – <span className="font-normal">Goal, Reality, Options, Will do – for structured coaching conversations</span></p>
-          <p className="text-base sm:text-lg text-gray-700 mb-4">The coachee will respond naturally—sometimes confident, sometimes uncertain, and occasionally challenged. Your task is to stay curious, ask open questions, and support reflection, clarity, and growth.</p>
+          <h1 className="text-2xl sm:text-3xl font-bold text-blue-800 mb-2">Meet Alex Carter</h1>
+          <p className="text-lg sm:text-xl text-gray-700 mb-2 font-semibold">The AI Buyer Who Never Says Yes Easily</p>
+          <p className="text-base sm:text-lg text-gray-700 mb-4">In this interactive simulation, you will step into real-life customer scenarios to sharpen your sales skills. Guided by proven sales frameworks, you'll practice handling objections, asking powerful questions, and closing deals — all in a safe, AI-driven environment designed to make you a better sales manager.</p>
           <div className="mb-4">
             <div className="font-semibold mb-1 text-lg sm:text-xl">✅ Before You Start</div>
             <ul className="list-disc list-inside text-base sm:text-lg text-gray-700 ml-2">
@@ -160,46 +160,43 @@ function InteractiveAvatar() {
           <div className="mb-4">
             <div className="font-semibold mb-1 text-lg sm:text-xl">🎯 Your Role</div>
             <ul className="list-disc list-inside text-base sm:text-lg text-gray-700 ml-2">
-              <li><b>You</b> are the <b>coach</b> – your job is to guide the coachee</li>
-              <li>The avatar is the <b>coachee</b> – they rely on your coaching</li>
-              <li>If the avatar accidentally starts coaching you back, say:<br /><span className="italic">"Stay in the role of your prompt."</span></li>
+              <li><b>You</b> are the <b>sales manager</b> – your job is to lead the conversation like you would with a real customer.</li>
+              <li>The avatar plays the role of your <b>customer</b> – they will respond naturally based on your input.</li>
+              <li>If the avatar behaves unnaturally or breaks character, simply say:<br /><span className="italic">"Stay in the role of your prompt."</span></li>
             </ul>
           </div>
           <div className="mb-4">
             <div className="font-semibold mb-1 text-lg sm:text-xl">🛠️ How to Use</div>
             <ol className="list-decimal list-inside text-base sm:text-lg text-gray-700 ml-2">
               <li>Click 'Chat now' to begin</li>
-              <li>Select your preferred language when the session starts</li>
-              <li>Type <b>"START Coaching"</b> to begin the session</li>
-              <li>Guide the coachee through development challenges using open, thoughtful questions</li>
-              <li><b>Say: End coaching and give feedback.</b></li>
-              <li>Receive <b>personalized feedback</b> on your coaching or feedback style</li>
+              <li>Say <b>"Start training"</b> to begin the session.</li>
+              <li>Navigate customer conversations using open, thoughtful questions that uncover needs, build trust, and move the deal forward.</li>
+              <li>Say:<b>"End training and give feedback."</b></li>
+              <li>Receive <b>personalized feedback</b> on your sales skills</li>
             </ol>
           </div>
           <div className="mb-2">
             <div className="font-semibold mb-1 text-lg sm:text-xl">🔍 Want to Get Better?</div>
             <ul className="list-disc list-inside text-base sm:text-lg text-gray-700 ml-2">
               <li><span className="italic">"Can you give me more detailed feedback on [specific area]?"</span></li>
-              <li><span className="italic">"What tools or techniques can help me improve my listening?"</span></li>
-              <li><span className="italic">"Give me 3 deeper questions I could have asked."</span></li>
-              <li><span className="italic">"What should I practice next as a coach?"</span></li>
+              <li><span className="italic">"What should I practice next?"</span></li>
             </ul>
           </div>
         </div>
         <div className="relative w-full max-w-5xl mx-auto flex flex-col items-center">
-          <div className="w-full max-w-5xl aspect-video bg-white rounded-xl shadow-2xl overflow-hidden flex items-center justify-center mx-auto" style={{ minHeight: '460px' }}>
+          <div className="w-full max-w-5xl aspect-video bg-white rounded-xl shadow-2xl overflow-hidden flex items-center justify-center mx-auto" style={{ minHeight: '460px', backgroundColor: '#fff' }}>
             {sessionState !== StreamingAvatarSessionState.INACTIVE ? (
               <AvatarVideo ref={mediaStream} />
             ) : (
-              <img src="/preview.png" alt="Avatar preview" className="w-full h-full object-cover" />
-            )}
-            {sessionState === StreamingAvatarSessionState.INACTIVE && (
-              <button
-                className="absolute bottom-6 left-1/2 -translate-x-1/2 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-3 rounded-full shadow-lg text-lg transition z-10"
-                onClick={() => startSessionV2(true)}
-              >
-                Chat now
-              </button>
+              <>
+                <img src="https://files2.heygen.ai/avatar/v3/92de79e533a8421bb86da63a0e5eb12f_57010/preview_target.webp" alt="Avatar preview" className="w-full h-full object-cover" />
+                <button
+                  className="absolute bottom-6 left-1/2 -translate-x-1/2 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-3 rounded-full shadow-lg text-lg transition z-10"
+                  onClick={() => startSessionV2(true)}
+                >
+                  Chat now
+                </button>
+              </>
             )}
           </div>
         </div>

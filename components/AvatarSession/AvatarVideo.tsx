@@ -14,7 +14,7 @@ export const AvatarVideo = forwardRef<HTMLVideoElement>(({}, ref) => {
   const isLoaded = sessionState === StreamingAvatarSessionState.CONNECTED;
 
   return (
-    <>
+    <div style={{ width: '100%', height: '100%', backgroundColor: '#fff', position: 'relative' }}>
       {connectionQuality !== ConnectionQuality.UNKNOWN && (
         <div className="absolute top-3 left-3 bg-black text-white rounded-lg px-3 py-2">
           Connection Quality: {connectionQuality}
@@ -36,6 +36,7 @@ export const AvatarVideo = forwardRef<HTMLVideoElement>(({}, ref) => {
           width: "100%",
           height: "100%",
           objectFit: "contain",
+          backgroundColor: "#fff"
         }}
       >
         <track kind="captions" />
@@ -45,7 +46,7 @@ export const AvatarVideo = forwardRef<HTMLVideoElement>(({}, ref) => {
           Loading...
         </div>
       )}
-    </>
+    </div>
   );
 });
 AvatarVideo.displayName = "AvatarVideo";
