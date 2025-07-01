@@ -9,30 +9,16 @@ const mavenPro = Maven_Pro({
 });
 
 export const metadata: Metadata = {
-  title: "Coaching for Growth at Versuni",
-  description: "Welcome to your AI-powered coaching session.",
+  title: "Meet Alex Carter",
+  description: "Welcome to your AI-powered training session.",
   openGraph: {
-    title: "Coaching for Growth at Versuni",
-    description: "Welcome to your AI-powered coaching session.",
-    images: [
-      {
-        url: "/versuni-logo.png",
-        width: 1200,
-        height: 630,
-        alt: "Versuni Logo",
-      },
-    ],
+    title: "Meet Alex Carter",
+    description: "Welcome to your AI-powered training session.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Coaching for Growth at Versuni",
-    description: "Welcome to your AI-powered coaching session.",
-    images: ["/versuni-logo.png"],
-  },
-  icons: {
-    icon: "/versuni-logo.png",
-    shortcut: "/versuni-logo.png",
-    apple: "/versuni-logo.png",
+    title: "Meet Alex Carter",
+    description: "Welcome to your AI-powered training session.",
   },
   metadataBase: new URL("https://jouw-app.up.railway.app"),
 };
