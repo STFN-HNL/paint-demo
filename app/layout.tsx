@@ -34,8 +34,10 @@ export default function RootLayout({
       className={`${mavenPro.variable} font-sans`}
       lang="en"
     >
-      <head />
-      <body className="min-h-screen bg-white text-black">
+      <head>
+        {/* Removed viewport meta tag to prevent zooming */}
+      </head>
+      <body className="min-h-screen bg-white text-black text-2xl overflow-x-hidden">
         <main className="relative flex flex-col gap-6 min-h-screen w-screen bg-white">
           {children}
         </main>

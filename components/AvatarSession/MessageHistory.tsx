@@ -17,21 +17,24 @@ export const MessageHistory: React.FC = () => {
   return (
     <div
       ref={containerRef}
-      className="w-full max-w-5xl mx-auto overflow-y-auto flex flex-col gap-2 p-6 self-center max-h-[150px] shadow-2xl rounded-xl bg-white"
+      className="w-full bg-gray-50 rounded-lg p-3 max-h-40 overflow-y-auto"
     >
       {messages.map((message) => (
         <div
           key={message.id}
-          className={`flex flex-col gap-1 max-w-[350px] ${
+          className={`mb-3 ${
             message.sender === MessageSender.CLIENT
-              ? "self-end items-end"
-              : "self-start items-start"
+              ? "text-right"
+              : "text-left"
           }`}
         >
-          <p className="text-xs text-zinc-400">
-            {message.sender === MessageSender.AVATAR ? "Avatar" : "You"}
-          </p>
-          <p className="text-sm text-black">{message.content}</p>
+          <div className={`inline-block p-2 rounded-lg max-w-[80%] ${
+            message.sender === MessageSender.CLIENT
+              ? "bg-blue-500 text-white"
+              : "bg-white text-black border"
+          }`}>
+            <p className="text-sm">{message.content}</p>
+          </div>
         </div>
       ))}
     </div>

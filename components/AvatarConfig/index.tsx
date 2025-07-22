@@ -53,7 +53,7 @@ export const AvatarConfig: React.FC<AvatarConfigProps> = ({
   }, [config.avatarName]);
 
   return (
-    <div className="relative flex flex-col gap-4 w-[550px] py-8 max-h-full overflow-y-auto px-4">
+    <div className="relative flex flex-col gap-4 w-full py-8 max-h-full overflow-y-auto px-4">
       <Field label="Avatar ID">
         <Select
           isSelected={(option) =>

@@ -307,81 +307,93 @@ function InteractiveAvatar() {
   const t = TRANSLATIONS[String(config.language)] || TRANSLATIONS.en;
 
   return (
-    <div className="min-h-screen bg-white flex flex-col items-center justify-center py-4 sm:py-8">
-      {/* Language Switcher helemaal bovenaan */}
-      <div className="w-full max-w-xs mt-4 mb-6">
-        <label htmlFor="language-select" className="block mb-2 text-sm font-medium text-gray-700">{t.chooseLanguage}</label>
-        <select
-          id="language-select"
-          className="block w-full p-2 border border-gray-300 rounded-lg"
-          value={config.language}
-          onChange={e => setConfig({ ...config, language: e.target.value })}
-        >
-          {languageOptions.map(opt => (
-            <option key={opt.value} value={opt.value}>{opt.label}</option>
+    <div className="min-h-screen bg-white w-full max-w-full px-2 flex flex-col overflow-x-hidden pt-4">
+      {/* Language Switcher */}
+      <div className="mb-6 w-full flex justify-center">
+        <div className="w-full max-w-sm">
+          <label className="block mb-2 text-3xl font-bold text-gray-700 text-center">{t.chooseLanguage}</label>
+          <select
+            className="w-full p-4 border-2 border-gray-300 rounded-xl text-2xl bg-white shadow-sm focus:border-blue-500 focus:outline-none"
+            value={config.language}
+            onChange={e => setConfig({ ...config, language: e.target.value })}
+          >
+            {languageOptions.map(opt => (
+              <option key={opt.value} value={opt.value}>{opt.label}</option>
+            ))}
+          </select>
+        </div>
+      </div>
+
+      {/* Title */}
+      <h1 className="text-4xl font-extrabold text-blue-800 mb-3 w-full text-center">{t.title}</h1>
+      <p className="text-3xl text-gray-700 mb-6 w-full text-center">{t.subtitle}</p>
+
+      {/* Instructions */}
+      <div className="mb-6 w-full">
+        <h2 className="text-4xl font-bold mb-3 text-blue-800">✅ {t.beforeYouStart.title}</h2>
+        <ul className="text-3xl text-gray-700 mb-6 list-disc list-inside space-y-2">
+          {t.beforeYouStart.list.map((item: string, idx: number) => (
+            <li key={idx} className="mb-3 leading-relaxed">{item}</li>
           ))}
-        </select>
+        </ul>
       </div>
-      <div className="w-full max-w-5xl mx-auto flex flex-col gap-10 items-center px-1 sm:px-6">
-        <div className="bg-white rounded-xl p-6 sm:p-10 w-full mb-2 mx-auto">
-          <h1 className="text-2xl sm:text-3xl font-bold text-blue-800 mb-2">{t.title}</h1>
-          <p className="text-lg sm:text-xl text-gray-700 mb-2 font-semibold">{t.subtitle}</p>
-          <div className="mb-4">
-            <div className="font-semibold mb-1 text-lg sm:text-xl">✅ {t.beforeYouStart.title}</div>
-            <ul className="list-disc list-inside text-base sm:text-lg text-gray-700 ml-2">
-              {t.beforeYouStart.list.map((item: string, idx: number) => (
-                <li key={idx}>{item}</li>
-              ))}
-            </ul>
-          </div>
-          <div className="mb-4">
-            <div className="font-semibold mb-1 text-lg sm:text-xl">🎯 {t.yourRole}</div>
-            <ul className="list-disc list-inside text-base sm:text-lg text-gray-700 ml-2">
-              {t.yourRoleList.map((item: string, idx: number) => (
-                <li key={idx} dangerouslySetInnerHTML={{ __html: item }} />
-              ))}
-            </ul>
-          </div>
-          <div className="mb-4">
-            <div className="font-semibold mb-1 text-lg sm:text-xl">🛠️ {t.howToUse}</div>
-            <ol className="list-decimal list-inside text-base sm:text-lg text-gray-700 ml-2">
-              {t.howToUseList.map((item: string, idx: number) => (
-                <li key={idx} dangerouslySetInnerHTML={{ __html: item }} />
-              ))}
-            </ol>
-          </div>
-          <div className="mb-4">
-            <div className="font-semibold mb-1 text-lg sm:text-xl">🔍 {t.wantToGetBetter.title}</div>
-            <ul className="list-disc list-inside text-base sm:text-lg text-gray-700 ml-2">
-              {t.wantToGetBetter.list.map((item: string, idx: number) => (
-                <li key={idx}>{item}</li>
-              ))}
-            </ul>
-          </div>
-        </div>
-        <div className="relative w-full max-w-5xl mx-auto flex flex-col items-center">
-          <div className="w-full max-w-5xl aspect-video bg-white rounded-xl shadow-2xl overflow-hidden flex items-center justify-center mx-auto" style={{ minHeight: '460px', backgroundColor: '#fff' }}>
-            {sessionState !== StreamingAvatarSessionState.INACTIVE ? (
-              <AvatarVideo ref={mediaStream} />
-            ) : (
-              <>
-                <img src="https://files2.heygen.ai/avatar/v3/92de79e533a8421bb86da63a0e5eb12f_57010/preview_target.webp" alt="Avatar preview" className="w-full h-full object-cover" />
-                <button
-                  className="absolute bottom-6 left-1/2 -translate-x-1/2 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-3 rounded-full shadow-lg text-lg transition z-10"
-                  onClick={() => startSessionV2(true)}
-                >
-                  {t.chatNow}
-                </button>
-              </>
-            )}
-          </div>
-        </div>
-        {sessionState === StreamingAvatarSessionState.CONNECTED && (
-          <div className="w-full mt-4">
-            <MessageHistory />
-          </div>
-        )}
+
+      <div className="mb-6 w-full">
+        <h2 className="text-4xl font-bold mb-3 text-blue-800">🎯 {t.yourRole}</h2>
+        <ul className="text-3xl text-gray-700 mb-6 list-disc list-inside space-y-2">
+          {t.yourRoleList.map((item: string, idx: number) => (
+            <li key={idx} className="mb-3 leading-relaxed" dangerouslySetInnerHTML={{ __html: item }} />
+          ))}
+        </ul>
       </div>
+
+      <div className="mb-6 w-full">
+        <h2 className="text-4xl font-bold mb-3 text-blue-800">🛠️ {t.howToUse}</h2>
+        <ol className="text-3xl text-gray-700 mb-6 list-decimal list-inside space-y-2">
+          {t.howToUseList.map((item: string, idx: number) => (
+            <li key={idx} className="mb-3 leading-relaxed" dangerouslySetInnerHTML={{ __html: item }} />
+          ))}
+        </ol>
+      </div>
+
+      <div className="mb-6 w-full">
+        <h2 className="text-4xl font-bold mb-3 text-blue-800">🔍 {t.wantToGetBetter.title}</h2>
+        <ul className="text-3xl text-gray-700 mb-6 list-disc list-inside space-y-2">
+          {t.wantToGetBetter.list.map((item: string, idx: number) => (
+            <li key={idx} className="mb-3 leading-relaxed">{item}</li>
+          ))}
+        </ul>
+      </div>
+
+      {/* Avatar */}
+      <div className="mb-8 w-full">
+        <div className="w-full aspect-video bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl overflow-hidden flex items-center justify-center shadow-lg">
+          {sessionState !== StreamingAvatarSessionState.INACTIVE ? (
+            <AvatarVideo ref={mediaStream} />
+          ) : (
+            <div className="relative w-full h-full flex items-center justify-center">
+              <img 
+                src="https://files2.heygen.ai/avatar/v3/92de79e533a8421bb86da63a0e5eb12f_57010/preview_target.webp" 
+                alt="Avatar preview" 
+                className="w-full h-full object-cover" 
+              />
+              <button
+                className="absolute bottom-6 left-1/2 -translate-x-1/2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold px-10 py-5 rounded-full shadow-xl text-2xl w-11/12 max-w-full transform transition-all duration-200 hover:scale-105"
+                onClick={() => startSessionV2(true)}
+              >
+                {t.chatNow}
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Messages */}
+      {sessionState === StreamingAvatarSessionState.CONNECTED && (
+        <div className="w-full">
+          <MessageHistory />
+        </div>
+      )}
     </div>
   );
 }

@@ -7,7 +7,7 @@ import { GithubIcon, HeyGenLogo } from "./Icons";
 export default function NavBar() {
   return (
     <>
-      <div className="flex flex-row justify-between items-center w-[1000px] m-auto p-6">
+      <div className="flex flex-row justify-between items-center w-full m-auto p-3 sm:p-6">
         <div className="flex flex-row items-center gap-4">
           <Link href="https://app.heygen.com/" target="_blank">
             <HeyGenLogo />
